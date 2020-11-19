@@ -1,0 +1,64 @@
+<!Doctype html>
+</html lang='en'>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Lambda API Gateway POC</title>
+<script>
+async function tom()
+{
+url="https://2x6r5ejzx4.execute-api.ap-south-1.amazonaws.com/live"
+try 
+{
+const config = {
+method: 'GET',
+headers: {
+'Content-Type':'application/json'
+}
+}
+const response = await fetch(url, config);
+const json = await response.json()
+if (response.ok) {
+const add=json.map(j=>
+{
+return "<tr><td>"+j.name+"</td><td>"+j.email+"</td><td>"+j.desc+"</td></tr>"
+});
+document.getElementById("data").innerHTML=add
+}
+}catch(error)
+{
+console.log(error)
+}
+}
+</script>
+</head>
+<body>
+<div class="container mt-4 border">
+
+<div>
+<h2 class="text-dark text-center">Lambda + API Gateway + DynamoDB POC</h2>
+</div>
+
+<div class="mt-4">
+<button class="button btn-dark" onclick="tom()">Get Data</button>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Desc</th>
+    </tr>
+  </thead>
+<tbody id="data">
+</tbody>
+</table>
+</div>
+
+</div>
+</body>
+</html>
